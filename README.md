@@ -14,10 +14,11 @@ Build the Docker image with
 
 ```docker build
 $ docker build --no-cache -t img-dockername-video . 
+```
 For now, you don't need to make it work on borgi, just use
 one of the GPUs
-
+```
 $ NV_GPU=<NUM GPU> nvidia-docker run -d -p 1111:8888 -v /home/negar/:/negar --name negarscreen1 img-dockername-video tail -f /dev/null
 $ docker exec -it img-dockername-video bash
-
 $ python video_converter.py
+```
