@@ -22,3 +22,9 @@ $ NV_GPU=<NUM GPU> nvidia-docker run -d -p 1111:8888 -v /home/negar/:/negar --na
 $ docker exec -it img-dockername-video bash
 $ python video_converter.py
 ```
+
+# TODO List:
+1. Make a folder in ```/mnt/AIDATA``` as ucf101 and put all data related to ucf101 in an organized way there.
+2. Remove all the path which are refering to a directory which is not in AIDATA
+3. All dependencies which are needed should be added in Docker. Please test all your codes just with docker.
+
