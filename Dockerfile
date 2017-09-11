@@ -49,7 +49,7 @@ RUN pip install bcolz==1.1.2
 RUN pip install pycuda==2016.1.2
 RUN pip install h5py==2.7.0
 RUN pip install kaggle-cli==0.10.0
-
+RUN pip install sk-video
 # Upgrade CUDNN to v6 to match compiled version of Tensorflow v1.3
 RUN echo "deb http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64 /" > /etc/apt/sources.list.d/nvidia-ml.list
 ENV CUDNN_VERSION 6.0.21

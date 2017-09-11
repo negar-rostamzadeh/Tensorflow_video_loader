@@ -14,8 +14,8 @@
 # ==============================================================================
 """Convert UCF101 video dataset to TFRecords of TF-Example protos.
 
-This module downloads the CIFAR10 data, uncompresses it, reads the files
-that make up the CIFAR10 data and creates two sets of TFRecord files: one for
+This module downloads the UCF101 data, uncompresses it, reads the files
+that make up the UCF101 data and creates two sets of TFRecord files: one for
 train and one for test. Each TFRecord file is comprised of a set of TF-Example
 protocol buffers, each of which contain a single image and label.
 
@@ -31,19 +31,26 @@ import os
 import csv
 import pandas as pd
 import gzip
-import imageio #TODO: document installing this
 import random
 import time
 import tensorflow as tf
-#import moviepy.editor as mp
-#from dataset_utils import write_label_file
 from helper import write_video_tf_record
 from helper import get_shard_path
-from helper import resize_video as video_resize
 from helper import ucf_nametoint
 
 "Negar: TODO: put the path to the UCF101 main directory"
 
+
+
+dataset_dir = '/mnt/AIDATA/datasets/ucf/UCF-101' #where to read data
+tfrecord_dir_test = '/mnt/AIDATA/datasets/ucf/tfrecords/test_tfrecords'
+tfrecord_dir_train =  '/mnt/AIDATA/datasets/ucf/tfrecords/train_tfrecords'
+ucfdict_dir = '/mnt/AIDATA/datasets/ucf/UCF-101/ucf101_classdict.txt'
+error_file = '/mnt/AIDATA/datasets/ucf/tfrecords/log_errors.txt' #log unsuccessful conversions
+success_file = '/mnt/AIDATA/datasets/ucf/tfrecords/log_success.txt'  #log successful conversions
+
+tf_record_dirs = [tfrecord_dir_train,tfrecord_dir_test]
+tf_record_set = ['train', 'test']
 
 def run(set_list, dataset_dir, tfrecords_dir):
     '''
@@ -90,7 +97,7 @@ def write_ucf101_videos_tf_record(set_list, dataset_dir, tfrecords_dirs, ucfdict
                 else:
                     vid_class  = example[1][:-1]                
                 vid_path = os.path.join(dataset_dir,vid_dir_path)
-                #sys.stdout.write(vid_path)
+                sys.stdout.write('Video Path: ' + vid_path)
                 #assert(os.path.exists(vid_path) == True)
                 write_video_tf_record(vid_path, vid_dir_path, int(vid_class),tf_writer, error_file, success_file,num_frames_keep = frames_keep)
                 
@@ -138,18 +145,6 @@ def shuffle_list_txt(list_path,shuffled_list_path):
 #testing on local machine 
 
 if (__name__ == "__main__"):
-    dataset_dir = '/home/anmol/projects/data/UCF-101'
-    # Negar: TODO: please make a directory for UCF101 in /mnt/AIDATA and put all the
-    # raw data and all tfrecord related to the UCF101 there
-    # the path should be defined in the begining of the files. Don't put them in the main.
-    tfrecord_dir_test = '/mnt/AIDATA/anmol/ucf_tfrecords_01/test_tfrecords'
-    tfrecord_dir_train = '/mnt/AIDATA/anmol/ucf_tfrecords_01/train_tfrecords'
-    ucfdict_dir = '/home/anmol/projects/kinetics-baseline/data_utils/ucf101_classdict.txt'
-    error_file = '/some_directory/error_file.txt' #What is this?
-    success_file = '/some_directory/success_file.txt' #what is this?
-
-    tf_record_dirs = [tfrecord_dir_train,tfrecord_dir_test]
-    tf_record_set = ['train', 'test']
     
     frames_keep = None #None means keep all frames
     write_ucf101_videos_tf_record(tf_record_set, dataset_dir, tf_record_dirs, ucfdict_dir, error_file, success_file, frames_keep = frames_keep)
