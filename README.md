@@ -15,12 +15,27 @@ Build the Docker image with
 ```docker build
 $ docker build --no-cache -t img-dockername-video . 
 ```
+Specify the relevant directories in the ucf101/video_converter.py file
+
+The set of files to convert (eg, train, test, val) must be specified first in ```tf_record_set```, and the corresponding directories to which they are written in ```tf_record_dirs``` 
+
+For example, 
+```
+tf_record_set = ['train', 'test']
+tf_record_dirs = [output_directory_train, output_directory_test] 
+``` 
+
+
+
 For now, you don't need to make it work on borgi, just use
 one of the GPUs
 ```
 $ NV_GPU=<NUM GPU> NV_GPU=0,2 nvidia-docker run -it -v ~/projects/Tensorflow_video_loader/:/Tensorflow_video_loader/  -v /mnt/:/mnt/ -p 8894:8888 --name container-name img-dockername-video bash
 $ python Tensorflow_video_loader/ucf101/video_converter.py
 ```
+Note:
+
+
 
 # TODO List:
 1. Make a folder in ```/mnt/AIDATA``` as ucf101 and put all data related to ucf101 in an organized way there.
