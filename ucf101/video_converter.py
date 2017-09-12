@@ -52,19 +52,21 @@ success_file = '/mnt/AIDATA/datasets/ucf/tfrecords/log_success.txt'  #log succes
 tf_record_dirs = [tfrecord_dir_train,tfrecord_dir_test]
 tf_record_set = ['train', 'test']
 
-def run(set_list, dataset_dir, tfrecords_dir):
-    '''
-    Run the conversion of the dataset
-    :param download_info: Download info about each sets filename
-    :param dataset_dir: Directory where the dataset is
-    :param shard_size: Number of example in a shard file
-    :return:
-    '''
-    return write_kinetics_videos_tf_record_action_shards(['train', 'validation'], dataset_dir, tfrecords_dir)
-# dataset is stored at dataset_dir/type/action_class/vid_id.mp4, where type = 'train', 'validation', 'test'
-# csv files are in: dataset_dir/type/type.csv
 def write_ucf101_videos_tf_record(set_list, dataset_dir, tfrecords_dirs, ucfdict_dir,error_file, success_file, split_num = 1, shard_size = 100, frames_keep = 25):
-    #dataset_dir should contain all action folders (with videos in them) as well as the ucfTrainTestlist
+    
+    """Run the conversion of the dataset
+    
+    :param set_list: list of sets to convert, eg, ['train', 'test']
+    :param dataset_dir: directory of dataset
+    :param tfrecords_dir: Root directory where tfrecords will be written
+    :param ucfdict_dir: path of ucf classname-to-int file
+    :param error_file: path where errors during conversion will be logged
+    :param success_file: path where successful conversions are logged
+    :param split_num: number of the ucf split, integer
+    :param shard_size: number of examples in each shard, integer
+    :param frames_keep: number of frames to keep (sampled evenly) from each video, None specifies keep all Frames
+    """
+
     videolist_dir = os.path.join(dataset_dir, 'ucfTrainTestlist')
     name_to_int = ucf_nametoint(ucfdict_dir)
     setnum=0
@@ -105,12 +107,11 @@ def write_ucf101_videos_tf_record(set_list, dataset_dir, tfrecords_dirs, ucfdict
         setnum+=1
     return
 
+
 def shuffle_list_csv(list_path,shuffled_list_path):
         
-    '''
-    shuffles csv file at list_path path and writes to shuffled_list_path 
-    
-    '''
+    """shuffles csv file at list_path path and writes to shuffled_list_path 
+    """
 
 
    
@@ -127,10 +128,8 @@ def shuffle_list_csv(list_path,shuffled_list_path):
     
 def shuffle_list_txt(list_path,shuffled_list_path):
         
-    '''
-    shuffles txt file at list_path path and writes to shuffled_list_path 
-    
-    '''
+    """shuffles txt file at list_path path and writes to shuffled_list_path 
+    """
     
     set_csv = open(list_path, 'r')
     data = set_csv.readlines()

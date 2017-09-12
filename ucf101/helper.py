@@ -10,16 +10,24 @@ import skvideo.io as sk
 
 
 def bytes_feature(value):
+    """Returns bytes Tensorflow Feature 
+    """
     return tf.train.Feature(bytes_list=tf.train.BytesList(value=[value]))
 
 def int64_feature(value):
+    """Returns int64 Tensorflow Feature
+    """
     return tf.train.Feature(int64_list=tf.train.Int64List(value=[value]))
 
 
 def float_feature(value):
+    """Returns float Tensorflow Feature
+    """
     return tf.train.Feature(float_list=tf.train.FloatList(value=[value]))
 
 def print_progress(set_name, shard, num_shards, image, num_images):
+    """Prints progress during shard building
+    """
     sys.stderr.write('\r>> Building {} shard {}/{}, image {}/{}'
                      .format(set_name, shard + 1, num_shards, image + 1,
                              num_images))
@@ -27,7 +35,9 @@ def print_progress(set_name, shard, num_shards, image, num_images):
 
 
 def ucf_nametoint(filepath, split_by = ' ', is_reversed = True):
+    """Returns the numerical class corresponding to string of the class 
 
+    """
     d = {}
     
     with open(filepath,'r') as file:
@@ -44,6 +54,10 @@ def ucf_nametoint(filepath, split_by = ' ', is_reversed = True):
 
 
 def get_shard_path(dataset_dir, set_name, shard, num_shards=0):
+    """Returns the shard path in the format of set_name-0000x-of-0000totalnum.tfrecords
+
+    """
+
     if num_shards > shard:
         shard_name = '{}-{:05d}-of-{:05d}'.format(set_name, shard+1, num_shards)
     else:
@@ -99,11 +113,6 @@ def get_numeric_feature(value):
     elif isinstance(value, (int, np.integer)):
         return int64_feature(value)
 
-    return None
-
-def get_string_feature(value):
-    if isinstance(value,(str)):
-        return bytes_feature(value)
     return None
 
 
@@ -163,11 +172,11 @@ def write_video_tf_record(video_path,  video_name, video_class, tfwriter, error_
     """Write video to _tf_record file
 
     :param video_path: Path of the video, string
-    :param video_name: name of the video file
-    :param video_class: string, class of video 
-    :param tfwriter: tf.python_io.TFRecordWriter() object 
+    :param video_name: name of the video file, string
+    :param video_class: class number of video, integer 
+    :param tfwriter: Tensorflow writer, tf.python_io.TFRecordWriter() object 
     :param num_channels: integer, specifies number of video channels, 3 for RGB by default
-     
+    :param num_frames_keep: Number of frames to keep, None implies keep all frames
 
     """
     try:
