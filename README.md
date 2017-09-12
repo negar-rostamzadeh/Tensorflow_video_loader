@@ -18,9 +18,8 @@ $ docker build --no-cache -t img-dockername-video .
 For now, you don't need to make it work on borgi, just use
 one of the GPUs
 ```
-$ NV_GPU=<NUM GPU> nvidia-docker run -d -p 1111:8888 -v /home/negar/:/negar --name negarscreen1 img-dockername-video tail -f /dev/null
-$ docker exec -it img-dockername-video bash
-$ python video_converter.py
+$ NV_GPU=<NUM GPU> NV_GPU=0,2 nvidia-docker run -it -v ~/projects/Tensorflow_video_loader/:/Tensorflow_video_loader/  -v /mnt/:/mnt/ -p 8894:8888 --name container-name img-dockername-video bash
+$ python Tensorflow_video_loader/ucf101/video_converter.py
 ```
 
 # TODO List:
