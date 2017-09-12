@@ -27,3 +27,9 @@ $ python Tensorflow_video_loader/ucf101/video_converter.py
 2. Remove all the path which are refering to a directory which is not in AIDATA
 3. All dependencies which are needed should be added in Docker. Please test all your codes just with docker.
 
+
+
+
+#Testing
+
+`test.py` contains code to read .tfrecord files and save output as numpy array. Specify the directory you want to inspect and where to save the output in `test.py`.
