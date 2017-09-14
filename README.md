@@ -8,8 +8,8 @@ The repository is organized as follows:
 * `kth/`: A directory containing codes for converting videos to batches.
   - `video_converter.py`: Reading avi files of the kth dataset.
 
-* `kinetiks/`: A directory containing codes for converting videos to batches.
-  - `video_converter.py`: Reading avi files of the kinetiks dataset.
+* `kinetics/`: A directory containing codes for converting videos to batches.
+  - `video_converter.py`: Reading avi files of the kinetics dataset.
 * `Dockerfile`: Recipe for a TensorFlow Docker image compiled from source with
   some non-default optimizations enabled (which gets rid of SSE-related warnings
   and such) as well as XLA support turned on.
