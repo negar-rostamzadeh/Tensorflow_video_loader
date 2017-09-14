@@ -3,7 +3,13 @@
 The repository is organized as follows:
 
 * `ucf101/`: A directory containing codes for converting videos to batches.
-  - `video_converter.py`: Reading avi files of the UCF101 dataset and 
+  - `video_converter.py`: Reading avi files of the UCF101 dataset.
+ 
+* `kth/`: A directory containing codes for converting videos to batches.
+  - `video_converter.py`: Reading avi files of the UCF101 dataset.
+
+* `kinetiks/`: A directory containing codes for converting videos to batches.
+  - `video_converter.py`: Reading avi files of the UCF101 dataset.
 * `Dockerfile`: Recipe for a TensorFlow Docker image compiled from source with
   some non-default optimizations enabled (which gets rid of SSE-related warnings
   and such) as well as XLA support turned on.
