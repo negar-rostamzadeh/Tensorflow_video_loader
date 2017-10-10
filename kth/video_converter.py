@@ -25,7 +25,7 @@ from helper import ucf_nametoint
 
 
 dataset_dir = '/mnt/AIDATA/anmol/kth_data/kth'
-tfrecords_dir = '/mnt/AIDATA/datasets/kth/tfrecords_drnetsplit' 
+tfrecords_dir = './tmp/' 
 split='drnet' #how is data split, either 'drnet' or 'default'
 
 
@@ -38,7 +38,10 @@ def write_kth_videos_tf_record_drnetsplit(dataset_dir, tfrecords_dir):
     train_nums = ['01', '02', '03', '04', '05', '06','07', '08', '09', '10', '11', '12', '13', '14', '15', '16'] 
     train_set = ['person'+x for x in train_nums]
     train_dir = os.path.join(tfrecords_dir, 'train/')
-    
+    if not os.path.exists(train_dir):
+        os.makedirs(train_dir)
+
+   
     train_shard_path_1 = get_shard_path(train_dir, 'train1',1,5)
     tf_writer_train_1 = tf.python_io.TFRecordWriter(train_shard_path_1)
     
@@ -64,9 +67,12 @@ def write_kth_videos_tf_record_drnetsplit(dataset_dir, tfrecords_dir):
     test_nums = ['17','18', '19', '20','21','22', '23','24','25']
     test_set = ['person'+x for x in test_nums]
     test_dir = os.path.join(tfrecords_dir, 'test/')
+    if not os.path.exists(test_dir):
+        os.makedirs(test_dir)
+
     test_shard_path = get_shard_path(test_dir, 'test',1,1)
     tf_writer_test = tf.python_io.TFRecordWriter(test_shard_path)
-   
+    
     success_log = os.path.join(tfrecords_dir, 'success.txt')
     fail_log = os.path.join(tfrecords_dir, 'failed.txt')
 
@@ -96,7 +102,9 @@ def write_kth_videos_tf_record(dataset_dir, tfrecords_dir):
     train_nums = ['11', '12', '13' ,'14', '15', '16', '17', '18'] 
     train_set = ['person'+x for x in train_nums]
     train_dir = os.path.join(tfrecords_dir, 'train/')
-    
+    if not os.path.exists(train_dir):
+        os.makedirs(train_dir)
+
     train_shard_path_1 = get_shard_path(train_dir, 'train1',1,5)
     tf_writer_train_1 = tf.python_io.TFRecordWriter(train_shard_path_1)
     
@@ -122,14 +130,21 @@ def write_kth_videos_tf_record(dataset_dir, tfrecords_dir):
     val_nums = ['19','20','21','23','24','25','01','04']
     val_set = ['person'+x for x in val_nums]
     val_dir = os.path.join(tfrecords_dir, 'val/')
+    if not os.path.exists(val_dir):
+        os.makedirs(val_dir)
+
     val_shard_path = get_shard_path(val_dir, 'val',1,1)
     tf_writer_val = tf.python_io.TFRecordWriter(val_shard_path)
 
     test_nums = ['22','02','03','05', '06', '07', '08','09','10']
     test_set = ['person'+x for x in test_nums]
     test_dir = os.path.join(tfrecords_dir, 'test/')
+    if not os.path.exists(test_dir):
+        os.makedirs(test_dir)
+
     test_shard_path = get_shard_path(test_dir, 'test',1,1)
     tf_writer_test = tf.python_io.TFRecordWriter(test_shard_path)
+    
     
     success_log = os.path.join(tfrecords_dir, 'success.txt')
     fail_log = os.path.join(tfrecords_dir, 'failed.txt')
